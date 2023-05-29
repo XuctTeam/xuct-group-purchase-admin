@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-08 17:41:25
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-22 14:18:12
+ * @LastEditTime: 2023-05-29 11:44:34
  * @FilePath: \xuct-group-purchase-admin\src\views\marketing\couponMange\index.vue
  * @Description: 
  * 
@@ -32,7 +32,11 @@
         </el-icon>
       </template>
       <!-- 菜单操作 -->
+
       <template #operation="scope">
+        <el-button type="primary" v-auth="'coupon:manage:view'" link :icon="View" @click="openDrawer('查看', scope.row)"
+          >查看</el-button
+        >
         <el-button type="primary" v-auth="'coupon:manage:edit'" link :icon="EditPen" @click="openDrawer('编辑', scope.row)"
           >编辑</el-button
         >
@@ -48,7 +52,7 @@ import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/interface'
 import ProTable from '@/components/ProTable/index.vue'
 import CouponDrawer from './components/CouponDrawer.vue'
-import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'
+import { Delete, EditPen, CirclePlus, View } from '@element-plus/icons-vue'
 import { couponListApi, addCouponApi, editCouponApi, deleteCouponApi, changeCouponStatusApi } from '@/api/modules/marketing'
 import { Marketing } from '@/api/interface'
 import { useHandleData } from '@/hooks/useHandleData'

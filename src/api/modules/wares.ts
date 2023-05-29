@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-15 17:46:13
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-19 10:51:36
+ * @LastEditTime: 2023-05-29 19:13:41
  * @FilePath: \xuct-group-purchase-admin\src\api\modules\wares.ts
  * @Description:
  *
@@ -94,4 +94,13 @@ export const editCategoryApi = (params: Wares.CategoryResult) => {
  */
 export const deleteCategoryApi = (params: { id: string }) => {
   return http.delete(PORT1 + `/v1/category/${params.id}`)
+}
+
+/**
+ * 商品评价列表
+ * @param params
+ * @returns
+ */
+export const waresEvaluateListApi = (params: Wares.ReqWaresEvaluateParams) => {
+  return http.get<Wares.WaresEvaluateResult[]>(PORT1 + '/v1/wares/evaluate/list', params)
 }

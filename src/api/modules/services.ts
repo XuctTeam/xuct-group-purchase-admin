@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-25 09:45:32
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-25 18:29:46
+ * @LastEditTime: 2023-05-29 18:44:21
  * @FilePath: \xuct-group-purchase-admin\src\api\modules\services.ts
  * @Description:
  *
@@ -35,4 +35,12 @@ export const memberRefundOrderAuditApi = (params: { id: string; content: string;
  */
 export const memberOpinionListApi = (params: Members.ReqMembersOpinionParams) => {
   return http.get<Members.MemberOpinionResult[]>(PORT1 + '/v1/opinion', params)
+}
+
+/**
+ * 反馈意见
+ * @param params
+ */
+export const feedbackMemberOpinionApi = (params: Members.MemberOpinionResult) => {
+  return http.put(PORT1 + '/v1/opinion', params)
 }

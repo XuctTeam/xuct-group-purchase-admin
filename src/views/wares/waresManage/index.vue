@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-15 16:55:04
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-17 15:35:52
+ * @LastEditTime: 2023-05-29 11:42:45
  * @FilePath: \xuct-group-purchase-admin\src\views\wares\waresManage\index.vue
  * @Description: 
  * 
@@ -22,7 +22,11 @@
         </el-icon>
       </template>
       <!-- 菜单操作 -->
+
       <template #operation="scope">
+        <el-button type="primary" v-auth="'wares:manage:view'" link :icon="View" @click="openDrawer('查看', scope.row)"
+          >查看</el-button
+        >
         <el-button
           type="primary"
           v-auth="'wares:manage:edit'"
@@ -45,7 +49,7 @@ import ProTable from '@/components/ProTable/index.vue'
 import TableImageTip from '@/components/TableImageTip/index.vue'
 import WaresDrawer from './components/WaresDrawer.vue'
 import { ElMessage } from 'element-plus'
-import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'
+import { Delete, EditPen, CirclePlus, View } from '@element-plus/icons-vue'
 import { Wares } from '@/api/interface'
 import { waresStatus } from '@/utils/serviceDict'
 import { useHandleData } from '@/hooks/useHandleData'
@@ -100,7 +104,7 @@ const columns: ColumnProps<Wares.WaresResult>[] = [
     }
   },
   { prop: 'inventory', label: '库存', width: 100 },
-  { prop: 'operation', label: '操作', fixed: 'right', width: 200 }
+  { prop: 'operation', label: '操作', fixed: 'right', width: 260 }
 ]
 
 const proTable = ref()

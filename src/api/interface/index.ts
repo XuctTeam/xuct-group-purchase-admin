@@ -168,6 +168,18 @@ export namespace Wares {
     name: string
     sort: number
   }
+
+  export type ReqWaresEvaluateParams = ReqPage
+
+  export type WaresEvaluateResult = {
+    memberName: string
+    memberAvatar: string
+    waresName: string
+    waresFirstDrawing: string
+    rate: string
+    remarks: string
+    evaluateImages?: string
+  }
 }
 
 // 营销管理模块
@@ -265,11 +277,12 @@ export namespace Members {
   export type ReqMembersOpinionParams = ReqPage
 
   export interface MemberOpinionResult {
+    id: string
     type: string
     createTime: Date
     images: string
     remarks?: string
-    status: number
+    status: boolean
     feedbackTime?: Date
     feedback?: string
     memberName: string
