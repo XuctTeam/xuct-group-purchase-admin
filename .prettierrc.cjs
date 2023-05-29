@@ -1,3 +1,13 @@
+/*
+ * @Author: Derek Xu
+ * @Date: 2023-05-08 17:41:25
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-10 14:11:23
+ * @FilePath: \xuct-group-purchase-admin\.prettierrc.cjs
+ * @Description:
+ *
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved.
+ */
 // @see: https://www.prettier.cn
 
 module.exports = {
@@ -8,9 +18,9 @@ module.exports = {
   // 使用制表符而不是空格缩进行 (true：制表符，false：空格)
   useTabs: false,
   // 结尾不用分号 (true：有，false：没有)
-  semi: true,
+  semi: false,
   // 使用单引号 (true：单引号，false：双引号)
-  singleQuote: false,
+  singleQuote: true,
   // 在对象字面量中决定是否将属性名用引号括起来 可选值 "<as-needed|consistent|preserve>"
   quoteProps: "as-needed",
   // 在JSX中使用单引号而不是双引号 (true：单引号，false：双引号)

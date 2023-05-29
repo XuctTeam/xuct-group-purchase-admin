@@ -1,36 +1,58 @@
-import { Login } from "@/api/interface/index";
-import { PORT1 } from "@/api/config/servicePort";
-import authMenuList from "@/assets/json/authMenuList.json";
-import authButtonList from "@/assets/json/authButtonList.json";
-import http from "@/api";
+/*
+ * @Author: Derek Xu
+ * @Date: 2023-05-08 17:41:25
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-19 10:06:43
+ * @FilePath: \xuct-group-purchase-admin\src\api\modules\login.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved.
+ */
+import { Login, ResultData } from '@/api/interface/index'
+import { PORT1 } from '@/api/config/servicePort'
+import authMenuList from '@/assets/json/authMenuList.json'
+import authButtonList from '@/assets/json/authButtonList.json'
+import http from '@/api'
 
 /**
  * @name 登录模块
  */
-// 用户登录
+// 用户登录logoutApi
 export const loginApi = (params: Login.ReqLoginForm) => {
-  return http.post<Login.ResLogin>(PORT1 + `/login`, params, { noLoading: true }); // 正常 post json 请求  ==>  application/json
+  return http.post<Login.ResLogin>(PORT1 + `/v1/login`, params, { noLoading: true }) // 正常 post json 请求  ==>  application/json
   // return http.post<Login.ResLogin>(PORT1 + `/login`, params, { noLoading: true }); // 控制当前请求不显示 loading
   // return http.post<Login.ResLogin>(PORT1 + `/login`, {}, { params }); // post 请求携带 query 参数  ==>  ?username=admin&password=123456
   // return http.post<Login.ResLogin>(PORT1 + `/login`, qs.stringify(params)); // post 请求携带表单参数  ==>  application/x-www-form-urlencoded
   // return http.get<Login.ResLogin>(PORT1 + `/login?${qs.stringify(params, { arrayFormat: "repeat" })}`); // get 请求可以携带数组等复杂参数
-};
+}
 
-// 获取菜单列表
+/**
+ * 获取菜单列表
+ * @returns
+ */
 export const getAuthMenuListApi = () => {
-  return http.get<Menu.MenuOptions[]>(PORT1 + `/menu/list`, {}, { noLoading: true });
+  return http.get<Menu.MenuOptions[]>(PORT1 + `/v1/user/menu`, {}, { noLoading: true })
   // 如果想让菜单变为本地数据，注释上一行代码，并引入本地 authMenuList.json 数据
-  return authMenuList;
-};
+  return authMenuList
+}
 
 // 获取按钮权限
 export const getAuthButtonListApi = () => {
-  return http.get<Login.ResAuthButtons>(PORT1 + `/auth/buttons`, {}, { noLoading: true });
+  return http.get<Login.ResAuthButtons>(PORT1 + `/v1/user/button`, {}, { noLoading: true })
   // 如果想让按钮权限变为本地数据，注释上一行代码，并引入本地 authButtonList.json 数据
-  return authButtonList;
-};
+  return authButtonList
+}
 
-// 用户退出登录
+/**
+ * 修改密码
+ * @param pass
+ * @returns
+ */
+export const updatePasswordApi = (pass: string) => {
+  return http.post<ResultData>(PORT1 + '/v1/user/modify/password', { pass }, { noLoading: true })
+}
+
+// 用户户退出登录
 export const logoutApi = () => {
-  return http.post(PORT1 + `/logout`);
-};
+  return http.post(PORT1 + `/v1/user/logout`)
+}
