@@ -1,11 +1,21 @@
+<!--
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 11:01:59
+ * @FilePath: \xuct-group-purchase-admin\src\layouts\LayoutVertical\index.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved. 
+-->
 <!-- 纵向布局 -->
 <template>
   <el-container class="layout">
     <el-aside>
       <div class="aside-box" :style="{ width: isCollapse ? '65px' : '210px' }">
         <div class="logo flx-center">
-          <img class="logo-img" src="@/assets/images/logo.svg" alt="logo" />
-          <span class="logo-text" v-show="!isCollapse">Geeker Admin</span>
+          <img class="logo-img" src="@/assets/images/logo.png" alt="logo" />
+          <span class="logo-text" v-show="!isCollapse">团到家</span>
         </div>
         <el-scrollbar>
           <el-menu
@@ -31,23 +41,23 @@
 </template>
 
 <script setup lang="ts" name="layoutVertical">
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useAuthStore } from "@/stores/modules/auth";
-import { useGlobalStore } from "@/stores/modules/global";
-import Main from "@/layouts/components/Main/index.vue";
-import ToolBarLeft from "@/layouts/components/Header/ToolBarLeft.vue";
-import ToolBarRight from "@/layouts/components/Header/ToolBarRight.vue";
-import SubMenu from "@/layouts/components/Menu/SubMenu.vue";
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/modules/auth'
+import { useGlobalStore } from '@/stores/modules/global'
+import Main from '@/layouts/components/Main/index.vue'
+import ToolBarLeft from '@/layouts/components/Header/ToolBarLeft.vue'
+import ToolBarRight from '@/layouts/components/Header/ToolBarRight.vue'
+import SubMenu from '@/layouts/components/Menu/SubMenu.vue'
 
-const route = useRoute();
-const authStore = useAuthStore();
-const globalStore = useGlobalStore();
-const isCollapse = computed(() => globalStore.isCollapse);
-const menuList = computed(() => authStore.showMenuListGet);
-const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string);
+const route = useRoute()
+const authStore = useAuthStore()
+const globalStore = useGlobalStore()
+const isCollapse = computed(() => globalStore.isCollapse)
+const menuList = computed(() => authStore.showMenuListGet)
+const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string)
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+@import './index.scss';
 </style>

@@ -3,8 +3,8 @@
   <el-container class="layout">
     <el-header>
       <div class="logo flx-center">
-        <img class="logo-img" src="@/assets/images/logo.svg" alt="logo" />
-        <span class="logo-text">Geeker Admin</span>
+        <img class="logo-img" src="@/assets/images/logo.png" alt="logo" />
+        <span class="logo-text">团到家</span>
       </div>
       <el-menu mode="horizontal" :default-active="activeMenu" :router="false" :unique-opened="true">
         <!-- 不能直接使用 SubMenu 组件，无法触发 el-menu 隐藏省略功能 -->
@@ -35,25 +35,25 @@
 </template>
 
 <script setup lang="ts" name="layoutTransverse">
-import { computed } from "vue";
-import { useAuthStore } from "@/stores/modules/auth";
-import { useRoute, useRouter } from "vue-router";
-import Main from "@/layouts/components/Main/index.vue";
-import ToolBarRight from "@/layouts/components/Header/ToolBarRight.vue";
-import SubMenu from "@/layouts/components/Menu/SubMenu.vue";
+import { computed } from 'vue'
+import { useAuthStore } from '@/stores/modules/auth'
+import { useRoute, useRouter } from 'vue-router'
+import Main from '@/layouts/components/Main/index.vue'
+import ToolBarRight from '@/layouts/components/Header/ToolBarRight.vue'
+import SubMenu from '@/layouts/components/Menu/SubMenu.vue'
 
-const route = useRoute();
-const router = useRouter();
-const authStore = useAuthStore();
-const menuList = computed(() => authStore.showMenuListGet);
-const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string);
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
+const menuList = computed(() => authStore.showMenuListGet)
+const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string)
 
 const handleClickMenu = (subItem: Menu.MenuOptions) => {
-  if (subItem.meta.isLink) return window.open(subItem.meta.isLink, "_blank");
-  router.push(subItem.path);
-};
+  if (subItem.meta.isLink) return window.open(subItem.meta.isLink, '_blank')
+  router.push(subItem.path)
+}
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+@import './index.scss';
 </style>

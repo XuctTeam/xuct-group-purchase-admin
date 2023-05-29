@@ -1,3 +1,13 @@
+<!--
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 11:05:37
+ * @FilePath: \xuct-group-purchase-admin\src\layouts\components\Main\components\Maximize.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved. 
+-->
 <template>
   <div class="maximize" @click="exitMaximize">
     <el-icon><Close /></el-icon>
@@ -5,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobalStore } from "@/stores/modules/global";
+import { useGlobalStore } from '@/stores/modules/global'
 
-const globalStore = useGlobalStore();
+const globalStore = useGlobalStore()
 const exitMaximize = () => {
-  globalStore.setGlobalState("maximize", false);
-};
+  globalStore.setGlobalState('maximize', false)
+}
 </script>
 
 <style scoped lang="scss">

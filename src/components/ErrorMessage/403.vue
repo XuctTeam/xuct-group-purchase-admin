@@ -1,3 +1,13 @@
+<!--
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 11:09:21
+ * @FilePath: \xuct-group-purchase-admin\src\components\ErrorMessage\403.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved. 
+-->
 <template>
   <div class="not-container">
     <img src="@/assets/images/403.png" class="not-img" alt="403" />
@@ -10,11 +20,11 @@
 </template>
 
 <script setup lang="ts" name="403">
-import { HOME_URL } from "@/config";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import { HOME_URL } from '@/config'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+@import './index.scss';
 </style>

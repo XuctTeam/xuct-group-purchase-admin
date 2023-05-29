@@ -1,4 +1,14 @@
-import { PersistedStateOptions } from "pinia-plugin-persistedstate";
+/*
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 10:55:12
+ * @FilePath: \xuct-group-purchase-admin\src\config\piniaPersist.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved.
+ */
+import { PersistedStateOptions } from 'pinia-plugin-persistedstate'
 
 /**
  * @description pinia 持久化参数配置
@@ -12,8 +22,8 @@ const piniaPersistConfig = (key: string, paths?: string[]) => {
     storage: localStorage,
     // storage: sessionStorage,
     paths
-  };
-  return persist;
-};
+  }
+  return persist
+}
 
-export default piniaPersistConfig;
+export default piniaPersistConfig

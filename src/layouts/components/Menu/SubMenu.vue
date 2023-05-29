@@ -1,3 +1,13 @@
+<!--
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 11:02:12
+ * @FilePath: \xuct-group-purchase-admin\src\layouts\components\Menu\SubMenu.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved. 
+-->
 <template>
   <template v-for="subItem in menuList" :key="subItem.path">
     <el-sub-menu v-if="subItem.children?.length" :index="subItem.path">
@@ -21,15 +31,15 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-defineProps<{ menuList: Menu.MenuOptions[] }>();
+defineProps<{ menuList: Menu.MenuOptions[] }>()
 
-const router = useRouter();
+const router = useRouter()
 const handleClickMenu = (subItem: Menu.MenuOptions) => {
-  if (subItem.meta.isLink) return window.open(subItem.meta.isLink, "_blank");
-  router.push(subItem.path);
-};
+  if (subItem.meta.isLink) return window.open(subItem.meta.isLink, '_blank')
+  router.push(subItem.path)
+}
 </script>
 
 <style lang="scss">
@@ -57,7 +67,7 @@ const handleClickMenu = (subItem: Menu.MenuOptions) => {
       top: 0;
       bottom: 0;
       width: 4px;
-      content: "";
+      content: '';
       background-color: var(--el-color-primary);
     }
   }

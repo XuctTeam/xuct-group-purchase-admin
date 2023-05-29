@@ -1,3 +1,13 @@
+<!--
+ * @Author: Derek Xu
+ * @Date: 2023-05-29 10:42:33
+ * @LastEditors: Derek Xu
+ * @LastEditTime: 2023-05-29 11:09:38
+ * @FilePath: \xuct-group-purchase-admin\src\components\SearchForm\index.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 楚恬商行, All Rights Reserved. 
+-->
 <template>
   <div class="card table-search" v-if="columns.length">
     <el-form ref="formRef" :model="searchParam">
@@ -12,7 +22,7 @@
             <el-button type="primary" :icon="Search" @click="search">搜索</el-button>
             <el-button :icon="Delete" @click="reset">重置</el-button>
             <el-button v-if="showCollapse" type="primary" link class="search-isOpen" @click="collapsed = !collapsed">
-              {{ collapsed ? "展开" : "合并" }}
+              {{ collapsed ? '展开' : '合并' }}
               <el-icon class="el-icon--right">
                 <component :is="collapsed ? ArrowDown : ArrowUp"></component>
               </el-icon>
@@ -24,27 +34,27 @@
   </div>
 </template>
 <script setup lang="ts" name="SearchForm">
-import { computed, ref } from "vue";
-import { ColumnProps } from "@/components/ProTable/interface";
-import { BreakPoint } from "@/components/Grid/interface";
-import { Delete, Search, ArrowDown, ArrowUp } from "@element-plus/icons-vue";
-import SearchFormItem from "./components/SearchFormItem.vue";
-import Grid from "@/components/Grid/index.vue";
-import GridItem from "@/components/Grid/components/GridItem.vue";
+import { computed, ref } from 'vue'
+import { ColumnProps } from '@/components/ProTable/interface'
+import { BreakPoint } from '@/components/Grid/interface'
+import { Delete, Search, ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+import SearchFormItem from './components/SearchFormItem.vue'
+import Grid from '@/components/Grid/index.vue'
+import GridItem from '@/components/Grid/components/GridItem.vue'
 
 interface ProTableProps {
-  columns?: ColumnProps[]; // 搜索配置列
-  searchParam?: { [key: string]: any }; // 搜索参数
-  searchCol: number | Record<BreakPoint, number>;
-  search: (params: any) => void; // 搜索方法
-  reset: (params: any) => void; // 重置方法
+  columns?: ColumnProps[] // 搜索配置列
+  searchParam?: { [key: string]: any } // 搜索参数
+  searchCol: number | Record<BreakPoint, number>
+  search: (params: any) => void // 搜索方法
+  reset: (params: any) => void // 重置方法
 }
 
 // 默认值
 const props = withDefaults(defineProps<ProTableProps>(), {
   columns: () => [],
   searchParam: () => ({})
-});
+})
 
 // 获取响应式设置
 const getResponsive = (item: ColumnProps) => {
@@ -56,30 +66,30 @@ const getResponsive = (item: ColumnProps) => {
     md: item.search?.md,
     lg: item.search?.lg,
     xl: item.search?.xl
-  };
-};
+  }
+}
 
 // 是否默认折叠搜索项
-const collapsed = ref(true);
+const collapsed = ref(true)
 
 // 获取响应式断点
-const gridRef = ref();
-const breakPoint = computed<BreakPoint>(() => gridRef.value?.breakPoint);
+const gridRef = ref()
+const breakPoint = computed<BreakPoint>(() => gridRef.value?.breakPoint)
 
 // 判断是否显示 展开/合并 按钮
 const showCollapse = computed(() => {
-  let show = false;
+  let show = false
   props.columns.reduce((prev, current) => {
     prev +=
       (current.search![breakPoint.value]?.span ?? current.search?.span ?? 1) +
-      (current.search![breakPoint.value]?.offset ?? current.search?.offset ?? 0);
-    if (typeof props.searchCol !== "number") {
-      if (prev >= props.searchCol[breakPoint.value]) show = true;
+      (current.search![breakPoint.value]?.offset ?? current.search?.offset ?? 0)
+    if (typeof props.searchCol !== 'number') {
+      if (prev >= props.searchCol[breakPoint.value]) show = true
     } else {
-      if (prev >= props.searchCol) show = true;
+      if (prev >= props.searchCol) show = true
     }
-    return prev;
-  }, 0);
-  return show;
-});
+    return prev
+  }, 0)
+  return show
+})
 </script>
