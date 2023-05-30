@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-08 17:41:25
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-29 19:15:10
+ * @LastEditTime: 2023-05-30 14:59:00
  * @FilePath: \xuct-group-purchase-admin\src\views\wares\evaluateManage\index.vue
  * @Description: 
  * 
@@ -18,12 +18,6 @@
       :columns="columns"
       :request-api="waresEvaluateListApi"
     >
-      <!-- 表格 header 按钮 -->
-      <template #tableHeader>
-        <el-button v-auth="'category:manage:add'" type="primary" :icon="CirclePlus" @click="openDrawer('新增')"
-          >新增分类</el-button
-        >
-      </template>
       <!-- 菜单图标 -->
       <template #icon="scope">
         <el-icon :size="18">
@@ -32,61 +26,79 @@
       </template>
       <!-- 菜单操作 -->
       <template #operation="scope">
-        <el-button type="primary" v-auth="'category:manage:edit'" link :icon="EditPen" @click="openDrawer('编辑', scope.row)"
-          >编辑</el-button
+        <el-button type="primary" v-auth="'evaluate:manage:view'" link :icon="View" @click="openDrawer(scope.row)"
+          >查看</el-button
         >
-        <el-button type="danger" v-auth="'category:manage:del'" link :icon="Delete" @click="deleteRole(scope.row)"
+        <el-button type="danger" v-auth="'evaluate:manage:del'" link :icon="Delete" @click="deleteWaresEvaluate(scope.row)"
           >删除</el-button
         >
       </template>
     </ProTable>
 
-    <category-drawer ref="drawerRef" />
+    <evaluate-drawer ref="drawerRef" />
   </div>
 </template>
-<script setup lang="ts" name="roleManage">
+<script setup lang="tsx" name="evaluateManage">
 import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/interface'
 import ProTable from '@/components/ProTable/index.vue'
-import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'
-import { waresEvaluateListApi } from '@/api/modules/wares'
+import { Delete, View } from '@element-plus/icons-vue'
+import TableImageTip from '@/components/TableImageTip/index.vue'
+import { deleteWareEvaluateApi, waresEvaluateListApi } from '@/api/modules/wares'
 import { Wares } from '@/api/interface'
+import EvaluateDrawer from './components/EvaluateDrawer.vue'
 import dayjs from 'dayjs'
+import { useHandleData } from '@/hooks/useHandleData'
 
 const proTable = ref()
 
 // 表格配置项
-const columns: ColumnProps[] = [
+const columns: ColumnProps<Wares.WaresEvaluateResult>[] = [
   { type: 'index', label: '#', width: 150 },
-  { prop: 'name', label: '分类名称' },
-  { prop: 'sort', label: '排序' },
+  { prop: 'memberName', label: '评价人', search: { el: 'input' } },
+  {
+    prop: 'memberAvatar',
+    label: '评价人头像',
+    width: 200,
+    render: scope => {
+      return <TableImageTip uri={scope.row.memberAvatar} pop-width={220} img-height={200} img-width={200}></TableImageTip>
+    }
+  },
+  { prop: 'waresName', label: '商品名称', search: { el: 'input' } },
   {
     prop: 'createTime',
-    label: '创建时间',
+    label: '评价时间',
     width: 220,
     render: scope => {
-      return dayjs(scope.row.createTime).format('YYYY-MM-DD')
+      return dayjs(scope.row.createTime).format('YYYY-MM-DD HH:mm:ss')
     }
+  },
+  {
+    prop: 'waresFirstDrawing',
+    label: '商品图片',
+    width: 200,
+    render: scope => {
+      return <TableImageTip uri={scope.row.waresFirstDrawing}></TableImageTip>
+    }
+  },
+  {
+    prop: 'rate',
+    label: '评分'
   },
   { prop: 'operation', label: '操作', width: 250, fixed: 'right' }
 ]
+const drawerRef = ref<InstanceType<typeof EvaluateDrawer> | null>(null)
 
-const openDrawer = (title: string, row: Partial<Wares.ReqWaresEvaluateParams> = {}) => {
-  console.log(title, row)
-  // const params = {
-  //   title,
-  //   isView: title === '查看',
-  //   row: { ...row },
-  //   api: title === '编辑' ? editCategoryApi : addCategoryApi,
-  //   getTableList: proTable.value.getTableList
-  // }
-  // drawerRef.value?.acceptParams(params)
+const openDrawer = (row: Partial<Wares.WaresEvaluateResult> = {}) => {
+  const params = {
+    row: { ...row }
+  }
+  drawerRef.value?.acceptParams(params)
 }
 
-// 删除分类
-const deleteRole = async (params: Wares.ReqWaresEvaluateParams) => {
-  console.log(params)
-  // await useHandleData(deleteCategoryApi, { id: [params.id] }, `删除【${params.name}】分类`)
-  // proTable.value.getTableList()
+// 删除评价
+const deleteWaresEvaluate = async (params: Wares.WaresEvaluateResult) => {
+  await useHandleData(deleteWareEvaluateApi, { id: [params.id] }, `删除【${params.waresName}】的评价`)
+  proTable.value.getTableList()
 }
 </script>

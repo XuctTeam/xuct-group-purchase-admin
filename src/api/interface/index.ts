@@ -172,8 +172,10 @@ export namespace Wares {
   export type ReqWaresEvaluateParams = ReqPage
 
   export type WaresEvaluateResult = {
+    id: string
     memberName: string
     memberAvatar: string
+    createTime: Date
     waresName: string
     waresFirstDrawing: string
     rate: string
