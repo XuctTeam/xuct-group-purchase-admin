@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-08 17:41:25
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-29 18:44:57
+ * @LastEditTime: 2023-06-02 18:00:19
  * @FilePath: \xuct-group-purchase-admin\src\views\services\opinionManage\index.vue
  * @Description: 
  * 
@@ -67,11 +67,11 @@ const columns: ColumnProps<Members.MemberOpinionResult>[] = [
     label: '反馈时间',
     width: 220,
     render: scope => {
-      return dayjs(scope.row.createTime).format('YYYY-MM-DD')
+      return dayjs(scope.row.createTime).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   { prop: 'remarks', label: '描述' },
-  { prop: 'operation', label: '操作', width: 250, fixed: 'right' }
+  { prop: 'operation', label: '操作', width: 250, fixed: 'right', align: 'left' }
 ]
 
 const proTable = ref()
