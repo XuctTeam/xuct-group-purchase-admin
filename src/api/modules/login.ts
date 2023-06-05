@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-08 17:41:25
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-19 10:06:43
+ * @LastEditTime: 2023-06-05 17:45:04
  * @FilePath: \xuct-group-purchase-admin\src\api\modules\login.ts
  * @Description:
  *
@@ -13,6 +13,10 @@ import { PORT1 } from '@/api/config/servicePort'
 import authMenuList from '@/assets/json/authMenuList.json'
 import authButtonList from '@/assets/json/authButtonList.json'
 import http from '@/api'
+
+export const captchaUrl = () => {
+  return PORT1 + '/v1/captcha'
+}
 
 /**
  * @name 登录模块

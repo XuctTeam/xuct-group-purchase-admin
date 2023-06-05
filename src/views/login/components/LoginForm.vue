@@ -14,6 +14,16 @@
         </template>
       </el-input>
     </el-form-item>
+    <el-form-item prop="code">
+      <div class="captcha">
+        <el-input v-model="loginForm.code" placeholder="请输入验证码" autocomplete="new-password">
+          <template #prefix>
+            <el-icon class="el-input__icon"><Picture /></el-icon>
+          </template>
+        </el-input>
+        <el-image :src="imgUrl" @click="imageClick"></el-image>
+      </div>
+    </el-form-item>
   </el-form>
   <div class="login-btn">
     <el-button :icon="CircleClose" round @click="resetForm(loginFormRef)" size="large">重置</el-button>
@@ -24,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { HOME_URL } from '@/config'
 import { getTimeState } from '@/utils'
@@ -37,6 +47,7 @@ import { useKeepAliveStore } from '@/stores/modules/keepAlive'
 import { initDynamicRouter } from '@/routers/modules/dynamicRouter'
 import { CircleClose, UserFilled } from '@element-plus/icons-vue'
 import type { ElForm } from 'element-plus'
+import { v4 as uuidv4 } from 'uuid'
 import md5 from 'js-md5'
 
 const router = useRouter()
@@ -48,14 +59,26 @@ type FormInstance = InstanceType<typeof ElForm>
 const loginFormRef = ref<FormInstance>()
 const loginRules = reactive({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
 })
 
 const loading = ref(false)
+const randomStr = ref<string>(uuidv4().replaceAll('-', ''))
 const loginForm = reactive<Login.ReqLoginForm>({
   username: '',
-  password: ''
+  password: '',
+  code: '',
+  randomStr: ''
 })
+
+const imgUrl = computed(() => {
+  return 'http://localhost:6400/api/admin/v1/captcha?randomStr=' + randomStr.value
+})
+
+const imageClick = () => {
+  randomStr.value = uuidv4().replaceAll('-', '')
+}
 
 // login
 const login = (formEl: FormInstance | undefined) => {
@@ -65,7 +88,7 @@ const login = (formEl: FormInstance | undefined) => {
     loading.value = true
     try {
       // 1.执行登录接口
-      const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) })
+      const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password), randomStr: randomStr.value })
       userStore.setToken(data.tokenValue)
       userStore.setUserInfo({ ...data.user })
 

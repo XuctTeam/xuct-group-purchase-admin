@@ -40,6 +40,8 @@ export namespace Login {
   export interface ReqLoginForm {
     username: string
     password: string
+    code: string
+    randomStr: string
   }
   export interface ResLogin {
     tokenValue: string
@@ -166,7 +168,9 @@ export namespace Wares {
   export interface CategoryResult {
     id?: string
     name: string
+    image: string
     sort: number
+    createTime: Date
   }
 
   export type ReqWaresEvaluateParams = ReqPage

@@ -1,8 +1,18 @@
+.captcha {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  .el-image {
+    width: 140px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
 .login-container {
   height: 100%;
   min-height: 550px;
   background-color: #eeeeee;
-  background-image: url("@/assets/images/login_bg.svg");
+  background-image: url('@/assets/images/login_bg.svg');
   background-size: 100% 100%;
   background-size: cover;
   .login-box {
@@ -70,13 +80,13 @@
   }
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (width <= 1250px) {
   .login-left {
     display: none;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (width <= 600px) {
   .login-form {
     width: 97% !important;
   }

@@ -2,7 +2,7 @@
  * @Author: Derek Xu
  * @Date: 2023-05-08 17:41:25
  * @LastEditors: Derek Xu
- * @LastEditTime: 2023-05-17 15:35:04
+ * @LastEditTime: 2023-06-05 09:49:16
  * @FilePath: \xuct-group-purchase-admin\src\views\wares\categoryManage\index.vue
  * @Description: 
  * 
@@ -45,12 +45,13 @@
     <category-drawer ref="drawerRef" />
   </div>
 </template>
-<script setup lang="ts" name="roleManage">
+<script setup lang="tsx" name="categoryManage">
 import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/interface'
 import ProTable from '@/components/ProTable/index.vue'
 import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'
 import CategoryDrawer from './components/CategoryDrawer.vue'
+import TableImageTip from '@/components/TableImageTip/index.vue'
 import { categoryListApi, addCategoryApi, editCategoryApi, deleteCategoryApi } from '@/api/modules/wares'
 import { Wares } from '@/api/interface'
 import { useHandleData } from '@/hooks/useHandleData'
@@ -59,9 +60,17 @@ import dayjs from 'dayjs'
 const proTable = ref()
 
 // 表格配置项
-const columns: ColumnProps[] = [
+const columns: ColumnProps<Wares.CategoryResult>[] = [
   { type: 'index', label: '#', width: 150 },
   { prop: 'name', label: '分类名称' },
+  {
+    prop: 'avatar',
+    label: '图片',
+    width: 200,
+    render: scope => {
+      return <TableImageTip uri={scope.row.image} pop-width={220} img-height={200} img-width={200}></TableImageTip>
+    }
+  },
   { prop: 'sort', label: '排序' },
   {
     prop: 'createTime',
